@@ -1,0 +1,142 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>Случайные числа в таблице</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    td {                                  
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }                                     
+    .orange {
+      background-color: orange;                   
+    }
+  </style>
+</head>
+<body>
+
+  <div id="tableContainer"></div>                                        
+
+  <script>
+    function generateRandomArray(size, min, max) {        
+      const arr = [];
+      for (let i = 0; i < size; i++) {
+        arr.push(Math.floor(Math.random() * (max - min + 1)) + min);
+      }
+      return arr;
+    }
+
+    function createTable(array, rows, cols) {
+      const table = document.createElement('table');
+      let arrayIndex = 0;
+
+      for (let i = 0; i < rows; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < cols; j++) {
+          const cell = document.createElement('td');
+          const number = array[arrayIndex];
+          cell.textContent = number;
+
+          if(number >= 50) {
+            cell.classList.add('orange');
+          }
+
+          row.appendChild(cell);
+          arrayIndex++;
+        }
+        table.appendChild(row);
+      }
+      return table;
+    }
+
+    const randomNumbers = generateRandomArray(30, 0, 99);
+    const table = createTable(randomNumbers, 5, 6);
+
+    const tableContainer = document.getElementById('tableContainer');
+    tableContainer.appendChild(table);
+  </script>
+
+</body>
+</html>                    
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Случайные числа в таблице</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    .orange {
+      background-color: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="tableContainer">
+      <table></table>
+  </div>
+
+  <button onclick="addRandomNumber()">Добавить число</button>
+
+  <script>
+    const table = document.querySelector('#tableContainer table');
+    let array = [];
+    let rows = 5;
+    let cols = 6;
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+
+     function addRandomNumber() {
+        const newNumber = getRandomInt(0, 99);
+        array.push(newNumber);
+
+
+        if (array.length <= rows * cols) {
+              let row_index = Math.floor((array.length - 1) / cols);
+              let col_index = (array.length - 1) % cols;
+
+            if (!table.rows[row_index]) {
+                 const newRow = table.insertRow(row_index);
+            }
+
+             const cell = table.rows[row_index].insertCell(col_index);
+             cell.textContent = newNumber;
+
+              if (newNumber >= 50) {
+                 cell.classList.add('orange');
+             }
+         } else {
+             console.log("Таблица заполнена!");
+         }
+    }
+
+  </script>
+
+</body>
+</html>
